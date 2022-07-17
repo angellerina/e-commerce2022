@@ -13,8 +13,14 @@ import {
 // Icons
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 
+// Context
+import { useStateContext } from "../../lib/context";
+
 export default function ProductDetails() {
-  // Fetcgh anchobi
+  // UseState
+  const { qty, increaseQty, decreaseQty } = useStateContext();
+
+  // Fetch anchobi data
   const { query } = useRouter();
 
   // Fetch GraphQL Data
@@ -44,12 +50,12 @@ export default function ProductDetails() {
           <span>Quantity</span>
 
           <button>
-            <AiFillMinusCircle />
+            <AiFillMinusCircle onClick={decreaseQty} />
           </button>
-          <p>0</p>
+          <p>{qty}</p>
 
           <button>
-            <AiFillPlusCircle />
+            <AiFillPlusCircle onClick={increaseQty} />
           </button>
         </Quantity>
 
