@@ -34,7 +34,7 @@ export const StateContext = ({ children }) => {
       setCartItems(
         cartItems.map((item) =>
           // Match target product to existing product in cart array
-          item.anchobi === product.slug
+          item.anchobi === product.anchobi
             ? // Spread the properties, but only updating the quantity
               { ...exist, quantity: exist.quantity + quantity }
             : item
@@ -44,6 +44,29 @@ export const StateContext = ({ children }) => {
       // Keep current items in cart
       // Add new product with new quantity
       setCartItems([...cartItems, { ...product, quantity: quantity }]);
+    }
+  };
+
+  // Remove product
+  const onRemove = (product) => {
+    //   Check if the product is already in the cart array
+    const exist = cartItems.find((item) => item.anchobi === product.anchobi);
+
+    if (exist.quantity === 1) {
+      // If target product with 1 qty does not match product in cart array, remove product
+      setCartItems(
+        cartItems.filter((item) => item.anchobi !== product.anchobi)
+      );
+    } else {
+      // Map over all items in cart array
+      setCartItems(
+        cartItems.map((item) =>
+          // if target product found, update ONLY the quantity by decreasing it by 1
+          item.anchobi === product.anchobi
+            ? { ...exist, quantity: exist.quantity - 1 }
+            : item
+        )
+      );
     }
   };
 
@@ -57,6 +80,7 @@ export const StateContext = ({ children }) => {
         setShowCart,
         cartItems,
         onAdd,
+        onRemove,
       }}
     >
       {children}
