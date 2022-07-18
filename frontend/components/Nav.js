@@ -12,6 +12,9 @@ import { FiShoppingBag } from "react-icons/fi";
 // Context
 import { useStateContext } from "../lib/context";
 
+// Animation
+const { AnimatePresence } = require("framer-motion");
+
 export default function Nav() {
   const { showCart, setShowCart, totalQuantities } = useStateContext();
 
@@ -26,7 +29,7 @@ export default function Nav() {
           <h3>Cart</h3>
         </div>
       </NavItems>
-      {showCart && <Cart />}
+      <AnimatePresence> {showCart && <Cart />}</AnimatePresence>
     </NavStyles>
   );
 }
