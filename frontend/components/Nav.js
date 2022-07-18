@@ -4,7 +4,7 @@ import Link from "next/link";
 import Cart from "./Cart";
 
 // Styles
-import { NavStyles, NavItems } from "../styles/NavStyles";
+import { NavStyles, NavItems, totalQuantities } from "../styles/NavStyles";
 
 // Icons
 import { FiShoppingBag } from "react-icons/fi";
@@ -13,7 +13,7 @@ import { FiShoppingBag } from "react-icons/fi";
 import { useStateContext } from "../lib/context";
 
 export default function Nav() {
-  const { showCart, setShowCart } = useStateContext();
+  const { showCart, setShowCart, totalQuantities } = useStateContext();
 
   return (
     <NavStyles>
@@ -21,6 +21,7 @@ export default function Nav() {
 
       <NavItems>
         <div onClick={() => setShowCart(true)}>
+          {totalQuantities > 0 && <span>{totalQuantities}</span>}
           <FiShoppingBag />
           <h3>Cart</h3>
         </div>
