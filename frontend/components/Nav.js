@@ -21,7 +21,7 @@ export default function Nav() {
 
   return (
     <NavStyles>
-      <Link href={"/"}>Bimch.</Link>
+      <Link href={"/"}>Peach.</Link>
 
       <NavItems>
         <div onClick={() => setShowCart(true)}>
