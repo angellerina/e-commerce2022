@@ -24,9 +24,40 @@ export const StateContext = ({ children }) => {
     });
   };
 
+  // Add product to cart
+  const onAdd = (product, quantity) => {
+    //   Check if the product is already in the cart array
+    const exist = cartItems.find((item) => item.anchobi === product.anchobi);
+
+    // If target product in cart array, loop over the cart array
+    if (exist) {
+      setCartItems(
+        cartItems.map((item) =>
+          // Match target product to existing product in cart array
+          item.anchobi === product.slug
+            ? // Spread the properties, but only updating the quantity
+              { ...exist, quantity: exist.quantity + quantity }
+            : item
+        )
+      );
+    } else {
+      // Keep current items in cart
+      // Add new product with new quantity
+      setCartItems([...cartItems, { ...product, quantity: quantity }]);
+    }
+  };
+
   return (
     <ShopContext.Provider
-      value={{ qty, increaseQty, decreaseQty, showCart, setShowCart }}
+      value={{
+        qty,
+        increaseQty,
+        decreaseQty,
+        showCart,
+        setShowCart,
+        cartItems,
+        onAdd,
+      }}
     >
       {children}
     </ShopContext.Provider>
