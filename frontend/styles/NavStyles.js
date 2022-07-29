@@ -9,6 +9,9 @@ export const NavStyles = styled.nav`
   a {
     font-size: 1.2rem;
   }
+  a:hover {
+    color: #dc85b1;
+  }
 `;
 
 export const NavItems = styled.div`
@@ -29,6 +32,10 @@ export const NavItems = styled.div`
   }
   svg {
     font-size: 1.5rem;
+  }
+
+  div:hover {
+    color: #dc85b1;
   }
 
   span {

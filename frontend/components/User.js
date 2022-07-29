@@ -21,6 +21,7 @@ export default function User() {
       </div>
     );
   }
+
   return (
     <Profile onClick={() => route.push("/profile")}>
       <img src={user.picture} alt={user.name} />

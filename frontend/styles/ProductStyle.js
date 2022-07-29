@@ -12,6 +12,11 @@ export const ProductSyles = styled.div`
     width: 100%;
     cursor: pointer;
   }
+
+  img:hover {
+    color: red;
+  }
+
   h2 {
     padding: 0.5rem 0rem;
   }

@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { useUser } from "@auth0/nextjs-auth0";
-
 // Components
 import Cart from "./Cart";
 import User from "./User";
@@ -21,7 +19,6 @@ const { motion } = require("framer-motion");
 
 export default function Nav() {
   const { showCart, setShowCart, totalQuantities } = useStateContext();
-  const { user, error, isLoading } = useUser();
 
   return (
     <NavStyles>

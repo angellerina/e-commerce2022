@@ -4,6 +4,11 @@ import { useStateContext } from "../lib/context";
 // Stripe
 import getStripe from "../lib/getStripe";
 
+// Hot Toast Animation
+import toast from "react-hot-toast";
+
+import { useUser } from "@auth0/nextjs-auth0";
+
 // Styles
 import {
   CartWrapper,
@@ -39,19 +44,38 @@ const cards = {
 };
 
 export default function Cart() {
+  const { user } = useUser();
+
   const { cartItems, setShowCart, onAdd, onRemove, totalPrice } =
     useStateContext();
 
   // Stripe Payment
   const handleCheckout = async () => {
-    const stripe = await getStripe();
-    const response = await fetch("/api/stripe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cartItems),
+    if (!user) {
+      return notifyLogIn();
+    } else {
+      const stripe = await getStripe();
+      const response = await fetch("/api/stripe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cartItems),
+      });
+
+      const data = await response.json();
+
+      await stripe.redirectToCheckout({ sessionId: data.id });
+    }
+  };
+
+  // Create a toast - notify to login before cart checkout
+  const notifyLogIn = () => {
+    toast.error("Please login before checking out", {
+      style: {
+        borderRadius: "10px",
+        background: "#333",
+        color: "#fff",
+      },
     });
-    const data = await response.json();
-    await stripe.redirectToCheckout({ sessionId: data.id });
   };
 
   return (
